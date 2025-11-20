@@ -1,0 +1,41 @@
+<div class="support-container">
+  <!-- === NAVBAR === -->
+  <header class="navbar">
+    <div class="container navbar-content">
+      <div class="logo">
+        <h1>Psico<span>Hub</span></h1>
+      </div>
+      <nav class="nav-links">
+        <a (click)="goHome()">Home</a>
+        <a (click)="goPerfil()">Perfil</a>
+        <a [routerLink]="['/contact']" routerLinkActive="active">Contacto</a>
+        <a [routerLink]="['/about']" routerLinkActive="active">Sobre Nosotros</a>
+      </nav>
+      <button class="btn-logout" (click)="logout()">Cerrar Sesión</button>
+    </div>
+  </header>
+
+  <!-- === CONTENIDO PRINCIPAL === -->
+  <main class="support-main">
+    <section class="support-card">
+      <h2 class="support-title">Centro de Soporte 💬</h2>
+      <p class="support-subtitle">
+        Estamos aquí para ayudarte. Explora nuestras opciones de soporte o envíanos tu consulta directamente.
+      </p>
+
+      <div class="support-options">
+        <div class="support-box">
+          <h3>📘 Preguntas Frecuentes</h3>
+          <p>Consulta nuestra base de conocimiento para resolver tus dudas más comunes.</p>
+          <button class="btn btn-outline" [routerLink]="['/faq']">Ver preguntas</button>
+        </div>
+
+        <div class="support-box">
+          <h3>📧 Enviar un Ticket</h3>
+          <p>Si tienes un problema técnico o administrativo, envíanos un mensaje detallado.</p>
+          <button class="btn btn-secondary" [routerLink]="['/contact']">Enviar ticket</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>

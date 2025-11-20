@@ -1,0 +1,188 @@
+.home-container {
+  background-color: #F8F9FA;
+  color: #2D2D2D;
+  min-height: 100vh; /* Cambiar de 100% a 100vh */
+  display: flex; /* Añadir */
+  flex-direction: column; /* Añadir */
+  flex: 1;
+}
+
+/* === NAVBAR === */
+.navbar {
+  background-color: #6A0DAD;
+  color: white;
+  padding: 1rem 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-content {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo h1 {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.logo span {
+  color: #B19CD9;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #FFD6FF;
+  text-decoration: underline;
+}
+
+/* === BOTÓN LOGOUT === */
+.btn-logout {
+  background-color: #EF4444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.btn-logout:hover {
+  background-color: #d93030;
+}
+
+/* === CONTENIDO PRINCIPAL === */
+.main-content {
+  flex: 1; /* Esto hace que el contenido principal ocupe el espacio disponible */
+  width: 90%;
+  max-width: 1100px;
+  margin: 3rem auto;
+  text-align: center;
+}
+
+.welcome h2 {
+  color: #4A0072;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.welcome p {
+  color: #6C757D;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* === CONTENEDOR CENTRAL === */
+.dashboard-box {
+  background-color: #ffffff;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Centrado y rejilla de cards */
+.cards-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  background-color: #f9f9ff;
+  border-radius: 16px;
+  box-shadow: 0 5px 10px rgba(106, 13, 173, 0.1);
+  padding: 2rem 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(106, 13, 173, 0.15);
+}
+
+.card h3 {
+  color: #6A0DAD;
+  margin-bottom: 0.5rem;
+}
+
+.card p {
+  color: #6C757D;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+/* === BOTONES === */
+.btn-primary,
+.btn-secondary,
+.btn-outline {
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.btn-primary {
+  background-color: #6A0DAD;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #4A0072;
+}
+
+.btn-secondary {
+  background-color: #9D4EDD;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #6A0DAD;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 2px solid #6A0DAD;
+  color: #6A0DAD;
+}
+
+.btn-outline:hover {
+  background-color: #6A0DAD;
+  color: white;
+}
+
+/* === RESPONSIVO === */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  .navbar-content {
+    justify-content: space-between;
+  }
+
+  .btn-logout {
+    font-size: 0.85rem;
+  }
+}

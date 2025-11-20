@@ -1,0 +1,142 @@
+<div class="profile-page">
+  <!-- === NAVBAR === -->
+  <header class="navbar">
+    <div class="container navbar-content">
+      <div class="logo">
+        <h1>Psico<span>Hub</span></h1>
+      </div>
+      <nav class="nav-links">
+        <a (click)="goHome()">Home</a>
+        <a (click)="goPerfil()">Perfil</a>
+        <a [routerLink]="['/contact']" routerLinkActive="active">Contacto</a>
+        <a [routerLink]="['/about']" routerLinkActive="active">Sobre Nosotros</a>
+      </nav>
+      <button class="btn-logout" (click)="logout()">Cerrar Sesión</button>
+    </div>
+  </header>
+
+  <!-- === PERFIL === -->
+  <section class="profile-container">
+    <div class="profile-card">
+      <h1 class="profile-title">Mi Perfil</h1>
+      <p class="profile-subtitle">Administra tu cuenta y preferencias personales</p>
+
+      @if (isLoadingData()) {
+        <div class="loading-message">
+          Cargando datos del perfil...
+        </div>
+      } @else {
+        @if (errorMessage()) {
+          <div class="error-message">
+            {{ errorMessage() }}
+          </div>
+        }
+
+        @if (successMessage()) {
+          <div class="success-message">
+            {{ successMessage() }}
+          </div>
+        }
+
+        <form [formGroup]="perfilForm" (ngSubmit)="onSubmit()" class="profile-form">
+          <h2>Información Personal</h2>
+
+          <div class="form-group">
+            <label for="nombre">Nombre completo</label>
+            <input type="text" id="nombre" formControlName="nombre">
+            @if (getFieldError('nombre')) {
+              <span class="field-error">{{ getFieldError('nombre') }}</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="apellido">Apellido</label>
+            <input type="text" id="apellido" formControlName="apellido">
+            @if (getFieldError('apellido')) {
+              <span class="field-error">{{ getFieldError('apellido') }}</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" formControlName="email">
+            @if (getFieldError('email')) {
+              <span class="field-error">{{ getFieldError('email') }}</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="dni">DNI</label>
+            <input type="text" id="dni" formControlName="dni">
+            <small class="help-text">El DNI no puede ser modificado</small>
+          </div>
+
+          <div class="form-group">
+            <label for="fechaNacimiento">Fecha de Nacimiento</label>
+            <input type="date" id="fechaNacimiento" formControlName="fechaNacimiento">
+            @if (getFieldError('fechaNacimiento')) {
+              <span class="field-error">{{ getFieldError('fechaNacimiento') }}</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="genero">Género</label>
+            <select id="genero" formControlName="genero">
+              <option value="Masculino">Masculino</option>
+              <option value="Femenino">Femenino</option>
+              <option value="Otro">Otro</option>
+              <option value="Prefiero no decirlo">Prefiero no decirlo</option>
+            </select>
+            @if (getFieldError('genero')) {
+              <span class="field-error">{{ getFieldError('genero') }}</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="telefono">Teléfono</label>
+            <input type="tel" id="telefono" formControlName="telefono" maxlength="9">
+            @if (getFieldError('telefono')) {
+              <span class="field-error">{{ getFieldError('telefono') }}</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="distrito">Distrito</label>
+            <input type="text" id="distrito" formControlName="distrito">
+            @if (getFieldError('distrito')) {
+              <span class="field-error">{{ getFieldError('distrito') }}</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="direccion">Dirección</label>
+            <input type="text" id="direccion" formControlName="direccion">
+            @if (getFieldError('direccion')) {
+              <span class="field-error">{{ getFieldError('direccion') }}</span>
+            }
+          </div>
+
+          <h2>Cambiar Contraseña</h2>
+          <small class="help-text">Deja en blanco si no deseas cambiar tu contraseña</small>
+
+          <div class="form-group">
+            <label for="password">Nueva Contraseña</label>
+            <input type="password" id="password" formControlName="password" placeholder="********">
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="isLoading() || perfilForm.invalid"
+          >
+            @if (isLoading()) {
+              Guardando...
+            } @else {
+              Guardar Cambios
+            }
+          </button>
+        </form>
+      }
+    </div>
+  </section>
+</div>

@@ -1,0 +1,166 @@
+/* === ESTILOS GENERALES === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #F8F9FA;
+  display: flex;
+  flex-direction: column; /* ← Cambiar dirección a columna */
+  min-height: 100vh; /* ← Usar min-height en lugar de height */
+}
+
+/* === CONTENEDOR === */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+  min-height: 100vh; /* Cambiar de 100% a 100vh */
+  display: flex; /* Añadir */
+  flex-direction: column; /* Añadir */
+  flex: 1; /* ← Esto hace que ocupe el espacio disponible */
+}
+
+/* === TARJETA === */
+.auth-card {
+  background-color: #FFFFFF;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  padding: 3rem 2rem;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.auth-logo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #6A0DAD;
+  margin-bottom: 0.5rem;
+}
+
+.auth-logo span {
+  color: #4A0072;
+}
+
+h2 {
+  color: #2D2D2D;
+  margin-bottom: 0.5rem;
+}
+
+.auth-subtitle {
+  color: #6C757D;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+/* === FORMULARIO === */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: left;
+}
+
+.auth-form label {
+  font-weight: 600;
+  color: #2D2D2D;
+  font-size: 0.9rem;
+}
+
+.auth-form input {
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.auth-form input:focus {
+  border-color: #6A0DAD;
+}
+
+/* === BOTÓN === */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #6A0DAD;
+  color: #FFFFFF;
+}
+
+.btn-primary:hover {
+  background-color: #9D4EDD;
+}
+
+/* === FOOTER === */
+.auth-footer {
+  margin-top: 1.5rem;
+  color: #6C757D;
+  font-size: 0.9rem;
+}
+
+.auth-footer a {
+  color: #6A0DAD;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.auth-footer a:hover {
+  color: #9D4EDD;
+}
+
+/* === RESPONSIVO === */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .auth-logo {
+    font-size: 1.6rem;
+  }
+}
+/* Agregar estos estilos al archivo existente */
+
+.error-message {
+  background-color: #FEE2E2;
+  color: #DC2626;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  border-left: 4px solid #DC2626;
+}
+
+.field-error {
+  color: #DC2626;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.auth-form input.invalid {
+  border-color: #DC2626;
+}
+
+.auth-form input.invalid:focus {
+  border-color: #DC2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

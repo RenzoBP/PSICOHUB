@@ -1,0 +1,204 @@
+/* === ESTILOS GENERALES === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #F8F9FA;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* antes estaba center */
+  min-height: 100vh; /* permite scroll */
+  font-family: "Quicksand", sans-serif;
+  color: #2D2D2D;
+  overflow-y: auto; /* habilita desplazamiento */
+  padding-top: 2rem; /* separa la parte superior */
+}
+
+/* === CONTENEDOR === */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+  min-height: 100vh; /* Cambiar de 100% a 100vh */
+  display: flex; /* Añadir */
+  flex-direction: column; /* Añadir */
+}
+
+/* === TARJETA === */
+.auth-card {
+  background-color: #FFFFFF;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  padding: 3rem 2rem;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  margin-bottom: 3rem; /* espacio al final por si el usuario hace scroll */
+}
+
+.auth-logo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #6A0DAD;
+  margin-bottom: 0.5rem;
+}
+
+.auth-logo span {
+  color: #4A0072;
+}
+
+h2 {
+  color: #2D2D2D;
+  margin-bottom: 0.5rem;
+}
+
+.auth-subtitle {
+  color: #6C757D;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+/* === FORMULARIO === */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: left;
+}
+
+.auth-form label {
+  font-weight: 600;
+  color: #2D2D2D;
+  font-size: 0.9rem;
+  margin-bottom: 0.2rem;
+  display: block;
+}
+
+.auth-form input,
+.auth-form select {
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  background-color: #fff;
+  appearance: none;
+}
+
+.auth-form input:focus,
+.auth-form select:focus {
+  border-color: #6A0DAD;
+  box-shadow: 0 0 6px rgba(106, 13, 173, 0.2);
+}
+
+/* === SELECT PERSONALIZADO === */
+.auth-form select {
+  background-image: url("data:image/svg+xml,%3Csvg fill='%236C757D' height='24' viewBox='0 0 24 24' width='24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+}
+
+/* === BOTÓN === */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background-color: #6A0DAD;
+  color: #FFFFFF;
+}
+
+.btn-primary:hover {
+  background-color: #9D4EDD;
+}
+
+/* === FOOTER === */
+.auth-footer {
+  margin-top: 1.5rem;
+  color: #6C757D;
+  font-size: 0.9rem;
+}
+
+.auth-footer a {
+  color: #6A0DAD;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.auth-footer a:hover {
+  color: #9D4EDD;
+}
+
+/* === RESPONSIVO === */
+@media (max-width: 480px) {
+  body {
+    padding-top: 1.5rem;
+  }
+
+  .auth-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .auth-logo {
+    font-size: 1.6rem;
+  }
+}
+/* Agregar al archivo registro-paciente.css existente */
+
+.error-message {
+  background-color: #FEE2E2;
+  color: #DC2626;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  border-left: 4px solid #DC2626;
+}
+
+.success-message {
+  background-color: #D1FAE5;
+  color: #059669;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  border-left: 4px solid #059669;
+}
+
+.field-error {
+  color: #DC2626;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.auth-form input.ng-invalid.ng-touched,
+.auth-form select.ng-invalid.ng-touched {
+  border-color: #DC2626;
+}
+
+.auth-form input.ng-invalid.ng-touched:focus,
+.auth-form select.ng-invalid.ng-touched:focus {
+  border-color: #DC2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

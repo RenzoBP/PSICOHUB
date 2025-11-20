@@ -1,0 +1,188 @@
+/* === NAVBAR === */
+.navbar {
+  background-color: #6A0DAD;
+  color: white;
+  padding: 1rem 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-content {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo h1 {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.logo span {
+  color: #B19CD9;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #FFD6FF;
+  text-decoration: underline;
+}
+
+/* === BOTÓN LOGOUT === */
+.btn-logout {
+  background-color: #EF4444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.btn-logout:hover {
+  background-color: #d93030;
+}
+
+.support-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f6f4fe; /* Lavanda claro */
+  color: #2d2d2d;
+}
+
+.support-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+}
+
+.support-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 900px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.support-title {
+  color: #6a0dad;
+  font-size: 1.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.support-subtitle {
+  color: #555;
+  font-size: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.support-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.support-box {
+  background-color: #faf8ff;
+  border: 1px solid #e2d6f5;
+  border-radius: 14px;
+  padding: 2rem 1.5rem;
+  box-shadow: 0 2px 10px rgba(106, 13, 173, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.support-box:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(106, 13, 173, 0.15);
+}
+
+.support-box h3 {
+  color: #6a0dad;
+  margin-bottom: 0.6rem;
+  font-size: 1.2rem;
+}
+
+.support-box p {
+  color: #555;
+  font-size: 0.95rem;
+  margin-bottom: 1.2rem;
+  line-height: 1.5;
+}
+
+/* === BOTONES MODERNOS === */
+.btn {
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+}
+
+.btn-primary {
+  background-color: #6a0dad;
+  color: white;
+  box-shadow: 0 3px 10px rgba(106, 13, 173, 0.2);
+}
+
+.btn-primary:hover {
+  background-color: #4a0072;
+  box-shadow: 0 5px 14px rgba(106, 13, 173, 0.3);
+}
+
+.btn-secondary {
+  background-color: #9d4edd;
+  color: white;
+  box-shadow: 0 3px 10px rgba(157, 78, 221, 0.25);
+}
+
+.btn-secondary:hover {
+  background-color: #6a0dad;
+  box-shadow: 0 5px 14px rgba(106, 13, 173, 0.3);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 2px solid #6a0dad;
+  color: #6a0dad;
+  box-shadow: none;
+}
+
+.btn-outline:hover {
+  background-color: #6a0dad;
+  color: white;
+  box-shadow: 0 4px 12px rgba(106, 13, 173, 0.25);
+}
+
+/* === RESPONSIVO === */
+@media (max-width: 768px) {
+  .support-card {
+    padding: 2rem 1rem;
+  }
+
+  .support-options {
+    grid-template-columns: 1fr;
+  }
+}

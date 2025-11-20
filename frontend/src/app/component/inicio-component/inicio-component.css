@@ -1,0 +1,246 @@
+/* === ESTRUCTURA GENERAL === */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Cambiar de 100% a 100vh */
+}
+
+/* Contenedor principal que envuelve TODO excepto el footer */
+.main-wrapper {
+  flex: 1; /* Esto hace que ocupe el espacio disponible */
+  display: flex;
+  flex-direction: column;
+}
+
+/* === ESTILOS BASE === */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* === HEADER === */
+.navbar {
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #6A0DAD;
+}
+
+.logo span {
+  color: #4A0072;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* === BOTONES === */
+.btn {
+  border: none;
+  padding: 10px 22px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #9D4EDD;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #6A0DAD;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 2px solid #6A0DAD;
+  color: #6A0DAD;
+}
+
+.btn-outline:hover {
+  background-color: #6A0DAD;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #6A0DAD;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #4A0072;
+}
+
+.btn-accent {
+  background-color: #B19CD9;
+  color: #2D2D2D;
+}
+
+.btn-accent:hover {
+  background-color: #9D4EDD;
+  color: white;
+}
+
+/* === HERO === */
+.hero {
+  background: linear-gradient(135deg, #6A0DAD, #4A0072);
+  color: white;
+  text-align: center;
+  padding: 6rem 1rem;
+}
+
+.hero-content {
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.hero h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: #EAEAEA;
+}
+
+/* === FEATURES === */
+.features {
+  padding: 4rem 1rem;
+  background-color: #F8F9FA;
+  text-align: center;
+}
+
+.section-title h2 {
+  color: #6A0DAD;
+  margin-bottom: 0.5rem;
+}
+
+.section-title p {
+  color: #6C757D;
+  margin-bottom: 2rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.feature-card {
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(106, 13, 173, 0.15);
+}
+
+.feature-icon {
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
+}
+
+.feature-card h3 {
+  color: #6A0DAD;
+  margin-bottom: 0.5rem;
+}
+
+/* === CTA === */
+.cta-section {
+  background-color: #4A0072;
+  color: white;
+  text-align: center;
+  padding: 4rem 1.5rem;
+}
+
+.cta-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.cta-section p {
+  color: #EAEAEA;
+  margin-bottom: 2rem;
+}
+
+/* === FOOTER === */
+.footer {
+  background-color: #2D2D2D;
+  color: white;
+  padding: 2rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* ✅ centra horizontalmente */
+  justify-content: center; /* ✅ centra verticalmente si el contenido es bajo */
+  text-align: center; /* ✅ alinea el texto */
+}
+
+.footer-content {
+  width: 100%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  justify-items: center; /* ✅ centra cada columna del grid */
+  text-align: center;
+}
+
+.footer-logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #B19CD9;
+}
+
+.footer h3 {
+  color: #9D4EDD;
+  margin-bottom: 0.8rem;
+}
+
+.footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer a {
+  color: #EAEAEA;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer a:hover {
+  color: #B19CD9;
+}

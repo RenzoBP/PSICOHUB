@@ -1,0 +1,51 @@
+<div class="home-container">
+  <!-- === NAVBAR === -->
+  <header class="navbar">
+    <div class="container navbar-content">
+      <div class="logo">
+        <h1>Psico<span>Hub</span></h1>
+      </div>
+      <nav class="nav-links">
+        <a (click)="goHome()">Home</a>
+        <a (click)="goPerfil()">Perfil</a>
+        <a [routerLink]="['/contact']" routerLinkActive="active">Contacto</a>
+        <a [routerLink]="['/about']" routerLinkActive="active">Sobre Nosotros</a>
+      </nav>
+      <button class="btn-logout" (click)="logout()">Cerrar Sesión</button>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <section class="welcome">
+      <h2>Bienvenido a PsicoHub 🧠</h2>
+      <p>
+        Aquí podrás gestionar tus citas, actualizar tu perfil, y acceder a recursos que te ayudarán en tu bienestar emocional.
+      </p>
+    </section>
+
+    <div class="dashboard-box">
+      <section class="cards-section">
+        <!-- Mis Citas -->
+        <div class="card">
+          <h3>Mis Citas</h3>
+          <p>Revisa tus próximas sesiones y tu historial de atención.</p>
+          <button class="btn-primary" [routerLink]="['/agendar-citas-psicologo']">Ver citas</button>
+        </div>
+
+        <!-- Agendar Cita -->
+        <div class="card">
+          <h3>Agendar Cita</h3>
+          <p>Reserva una nueva sesión con el psicólogo y la especialidad que prefieras.</p>
+          <button class="btn-outline" [routerLink]="['/agendar-citas-psicologo']">Agendar</button>
+        </div>
+
+        <!-- Soporte -->
+        <div class="card">
+          <h3>Soporte</h3>
+          <p>¿Tienes dudas o necesitas ayuda? Contáctanos en cualquier momento.</p>
+          <button class="btn-primary" [routerLink]="['/soporte']">Contactar</button>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>

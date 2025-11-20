@@ -1,0 +1,54 @@
+<div class="about-container">
+  <!-- === NAVBAR === -->
+  <header class="navbar">
+    <div class="container navbar-content">
+      <div class="logo">
+        <h1>Psico<span>Hub</span></h1>
+      </div>
+      <nav class="nav-links">
+        <a (click)="goHome()">Home</a>
+        <a (click)="goPerfil()">Perfil</a>
+        <a [routerLink]="['/contact']" routerLinkActive="active">Contacto</a>
+        <a [routerLink]="['/about']" routerLinkActive="active">Sobre Nosotros</a>
+      </nav>
+      <button class="btn-logout" (click)="logout()">Cerrar Sesión</button>
+    </div>
+  </header>
+
+  <!-- === CONTENIDO PRINCIPAL === -->
+  <main class="main-content">
+    <section class="about-intro">
+      <h2>Sobre Nosotros</h2>
+      <p>
+        En <strong>PsicoHub</strong>, conectamos a las personas con el bienestar emocional que necesitan.
+        Nuestra misión es hacer que la psicología sea más accesible, cercana y moderna.
+      </p>
+    </section>
+
+    <section class="about-sections">
+      <div class="about-card">
+        <h3>Nuestra Misión</h3>
+        <p>
+          Ofrecer un espacio digital seguro y profesional para que cada persona pueda cuidar su salud mental,
+          con acompañamiento humano y herramientas modernas.
+        </p>
+      </div>
+
+      <div class="about-card">
+        <h3>Nuestros Valores</h3>
+        <p>
+          Empatía, confianza y compromiso. Creemos en un futuro donde la salud emocional
+          sea una prioridad accesible para todos.
+        </p>
+      </div>
+
+      <div class="about-card">
+        <h3>El Equipo</h3>
+        <p>
+          Somos psicólogos, desarrolladores y profesionales dedicados al bienestar.
+          Juntos impulsamos PsicoHub para mejorar vidas cada día.
+        </p>
+      </div>
+    </section>
+  </main>
+</div>
