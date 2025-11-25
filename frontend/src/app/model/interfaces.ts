@@ -52,6 +52,15 @@ export class Psicologo {
   usuario!: Usuario;
 }
 
+export class ContactoMensaje {
+  idMensaje?: number = 0;
+  nombre!: string;
+  email!: string;
+  asunto!: string;
+  mensaje!: string;
+  fecha?: string;
+}
+
 export interface ErrorResponse {
   success: boolean;
   error: string;

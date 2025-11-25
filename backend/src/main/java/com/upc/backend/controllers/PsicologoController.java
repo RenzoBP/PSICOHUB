@@ -1,6 +1,5 @@
 package com.upc.backend.controllers;
 
-import com.upc.backend.dtos.PacienteDTO;
 import com.upc.backend.dtos.PsicologoDTO;
 import com.upc.backend.services.PsicologoService;
 import org.springframework.beans.factory.annotation.Autowired;

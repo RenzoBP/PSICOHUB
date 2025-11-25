@@ -1,6 +1,5 @@
 package com.upc.backend.interfaces;
 
-import com.upc.backend.dtos.PacienteDTO;
 import com.upc.backend.dtos.PsicologoDTO;
 
 import java.util.List;

@@ -223,3 +223,15 @@ select.ng-invalid.ng-touched:focus {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+input[readonly] {
+  background-color: #ffffff; /* MISMO fondo que los otros */
+  opacity: 0.8;             /* opcional para mostrar que está bloqueado */
+  cursor: not-allowed;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}

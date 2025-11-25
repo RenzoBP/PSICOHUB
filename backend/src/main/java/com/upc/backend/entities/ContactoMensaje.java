@@ -3,23 +3,31 @@ package com.upc.backend.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity
-@Table(name = "especialidades")
+@Table(name = "contacto_mensajes")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Especialidad {
+public class ContactoMensaje {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idEspecialidad;
+    private Long idMensaje;
 
     @Column(nullable = false)
     private String nombre;
 
     @Column(nullable = false)
-    private String categoria;
+    private String email;
 
     @Column(nullable = false)
-    private Boolean activo = true;
+    private String asunto;
+
+    @Column(nullable = false)
+    private String mensaje;
+
+    @Column(nullable = false)
+    private LocalDate fecha;
 }

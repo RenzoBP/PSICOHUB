@@ -24,28 +24,93 @@
         Completa el formulario y te responderemos lo antes posible.
       </p>
 
-      <form class="contact-form">
+      <!-- Mensajes de éxito y error -->
+      @if (successMessage()) {
+        <div class="alert alert-success">
+          {{ successMessage() }}
+        </div>
+      }
+
+      @if (errorMessage()) {
+        <div class="alert alert-error">
+          {{ errorMessage() }}
+        </div>
+      }
+
+      <form [formGroup]="contactoForm" (ngSubmit)="onSubmit()" class="contact-form">
         <div class="form-group">
           <label for="nombre">Nombre completo</label>
-          <input type="text" id="nombre" placeholder="Tu nombre" />
+          <input
+            type="text"
+            id="nombre"
+            formControlName="nombre"
+            placeholder="Tu nombre"
+            [class.error]="getFieldError('nombre')"
+          />
+          @if (getFieldError('nombre')) {
+            <span class="field-error">{{ getFieldError('nombre') }}</span>
+          }
         </div>
 
         <div class="form-group">
-          <label for="correo">Correo electrónico</label>
-          <input type="email" id="correo" placeholder="tuemail@ejemplo.com" />
+          <label for="email">Correo electrónico</label>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            placeholder="tuemail@ejemplo.com"
+            readonly
+            [class.error]="getFieldError('email')"
+          />
+          @if (getFieldError('email')) {
+            <span class="field-error">{{ getFieldError('email') }}</span>
+          }
         </div>
 
         <div class="form-group">
           <label for="asunto">Asunto</label>
-          <input type="text" id="asunto" placeholder="Motivo del mensaje" />
+          <select
+            id="asunto"
+            formControlName="asunto"
+            [class.error]="getFieldError('asunto')"
+          >
+            <option value="" disabled selected>Selecciona un asunto</option>
+            <option value="Soporte y Cuenta">Soporte y Cuenta</option>
+            <option value="Consultas sobre un Servicio">Consultas sobre un Servicio</option>
+            <option value="Problema Técnico">Problema Técnico</option>
+            <option value="Sugerencia o Idea">Sugerencia o Idea</option>
+            <option value="General">General</option>
+          </select>
+          @if (getFieldError('asunto')) {
+            <span class="field-error">{{ getFieldError('asunto') }}</span>
+          }
         </div>
 
         <div class="form-group">
           <label for="mensaje">Mensaje</label>
-          <textarea id="mensaje" rows="5" placeholder="Escribe tu mensaje aquí..."></textarea>
+          <textarea
+            id="mensaje"
+            rows="5"
+            formControlName="mensaje"
+            placeholder="Escribe tu mensaje aquí..."
+            [class.error]="getFieldError('mensaje')"
+          ></textarea>
+          @if (getFieldError('mensaje')) {
+            <span class="field-error">{{ getFieldError('mensaje') }}</span>
+          }
         </div>
 
-        <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="isLoading() || contactoForm.invalid"
+        >
+          @if (isLoading()) {
+            Enviando...
+          } @else {
+            Enviar Mensaje
+          }
+        </button>
       </form>
     </section>
   </main>

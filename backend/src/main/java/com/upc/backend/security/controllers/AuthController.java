@@ -34,7 +34,6 @@ public class AuthController {
                     ));
         }
     }
-    @PreAuthorize("hasAnyRole('ADMIN', 'PACIENTE', 'PSICOLOGO')")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequestDTO req) {
         try {
