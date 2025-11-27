@@ -74,8 +74,8 @@ public class EspecialidadController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'PSICOLOGO')")
-    @GetMapping("/listarTodo")
-    public List<EspecialidadDTO> listarTodo() {
-        return especialidadService.listarTodo();
+    @GetMapping("/listarEspecialidades")
+    public List<EspecialidadDTO> listarEspecialidades() {
+        return especialidadService.listarEspecialidades();
     }
 }

@@ -11,15 +11,13 @@ import {ContactoMensaje, Psicologo} from '../model/interfaces';
 export class ContactoService {
   private url = environment.apiURL;
   private http: HttpClient = inject(HttpClient);
-  private listaCambio = new Subject<ContactoMensaje[]>();
 
   constructor() { }
 
   registrar(contactoMensaje: ContactoMensaje): Observable<any>{
     return this.http.post(this.url + "/contacto/registrar", contactoMensaje);
   }
-
-  listarTodo(): Observable<any>{
-    return this.http.get<ContactoMensaje[]>(this.url + "/contacto/listarTodo");
+  listarContactoMensajes(): Observable<any>{
+    return this.http.get<ContactoMensaje[]>(this.url + "/contacto/listarContactoMensajes");
   }
 }

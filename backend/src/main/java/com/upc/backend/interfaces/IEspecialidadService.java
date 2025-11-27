@@ -9,5 +9,5 @@ public interface IEspecialidadService {
     public void eliminar(String nombre);
     public List<EspecialidadDTO> listarPorCategoria(String categoria);
     public List<EspecialidadDTO> listarEspecialidadesActivas();
-    public List<EspecialidadDTO> listarTodo();
+    public List<EspecialidadDTO> listarEspecialidades();
 }

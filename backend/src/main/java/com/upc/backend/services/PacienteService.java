@@ -214,7 +214,7 @@ public class PacienteService implements IPacienteService {
     }
 
     @Override
-    public List<PacienteDTO> listarTodos(){
+    public List<PacienteDTO> listarPacientes(){
         return pacienteRepository.findAll()
                 .stream()
                 .map(paciente -> modelMapper.map(paciente, PacienteDTO.class))

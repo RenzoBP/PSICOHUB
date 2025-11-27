@@ -16,4 +16,6 @@ public interface PsicologoRepository extends JpaRepository<Psicologo, Long> {
     Optional<Psicologo> findByDni(String dni);
     boolean existsByDni(String dni);
     boolean existsByTelefono(String telefono);
+
+    Psicologo findByNombre(String nombre);
 }

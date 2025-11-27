@@ -1,0 +1,111 @@
+<div class="contact-container">
+
+  <!-- === NAVBAR === -->
+  <header class="navbar">
+    <div class="container navbar-content">
+      <div class="logo">
+        <h1>Psico<span>Hub</span></h1>
+      </div>
+
+      <nav class="nav-links">
+        <a (click)="goHome()">Home</a>
+        <a (click)="goPerfil()">Perfil</a>
+        <a [routerLink]="['/contact']">Contacto</a>
+        <a [routerLink]="['/about']">Sobre Nosotros</a>
+      </nav>
+
+      <button class="btn-logout" (click)="logout()">Cerrar Sesión</button>
+    </div>
+  </header>
+
+  <!-- === MAIN === -->
+  <main class="contact-main">
+    <section class="contact-card">
+      <h2 class="contact-title">Registrar Cita 📅</h2>
+      <p class="contact-subtitle">
+        Complete la información para agendar una nueva cita.
+      </p>
+
+      <!-- === FORMULARIO DE CITA === -->
+      <form [formGroup]="citaForm" (ngSubmit)="onSubmit()" class="auth-form">
+
+        <div class="form-group">
+          <label for="codigo">Código de la Cita</label>
+          <input type="number" id="codigo" formControlName="codigo" placeholder="123456" required />
+          @if (getFieldError('nombre')) {
+            <span class="field-error">{{ getFieldError('nombre') }}</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="paciente">Paciente</label>
+          <select id="paciente" name="paciente" formControlName="paciente" required>
+            <option value="" disabled selected>Seleccione un paciente...</option>
+            <option *ngFor="let p of pacientes" [value]="p.id">{{ p.nombre }}</option>
+          </select>
+          @if (getFieldError('paciente')) {
+            <span class="field-error">{{ getFieldError('paciente') }}</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="psicologo">Psicólogo</label>
+          <select id="psicologo" name="psicologo" formControlName="psicologo" required>
+            <option value="" disabled selected>Seleccione un psicólogo...</option>
+            <option *ngFor="let ps of psicologos" [value]="ps.id">{{ ps.nombre }}</option>
+          </select>
+          @if (getFieldError('psicologo')) {
+            <span class="field-error">{{ getFieldError('psicologo') }}</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="especialidad">Especialidad</label>
+          <select id="especialidad" name="especialidad" formControlName="especialidad" required>
+            <option value="" disabled selected>Seleccione la especialidad...</option>
+            <option *ngFor="let e of especialidades" [value]="e.id">{{ e.nombre }}</option>
+          </select>
+          @if (getFieldError('especialidad')) {
+            <span class="field-error">{{ getFieldError('especialidad') }}</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="hora">Hora de la Cita</label>
+          <input type="time" id="hora" name="hora" formControlName="hora" required />
+          @if (getFieldError('hora')) {
+            <span class="field-error">{{ getFieldError('hora') }}</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="precio">Precio</label>
+          <input type="number" id="precio" name="precio" formControlName="precio" step="0.01" min="0" required />
+          @if (getFieldError('precio')) {
+            <span class="field-error">{{ getFieldError('precio') }}</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="descripcion">Descripción de la Cita</label>
+          <textarea id="descripcion" name="descripcion" rows="3" formControlName="descripcion" required></textarea>
+          @if (getFieldError('descripcion')) {
+            <span class="field-error">{{ getFieldError('descripcion') }}</span>
+          }
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="isLoading()"
+        >
+          @if (isLoading()) {
+            Agendando Cita...
+          } @else {
+            Agendar Cita
+          }
+        </button>
+      </form>
+    </section>
+  </main>
+</div>

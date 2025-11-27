@@ -6,7 +6,7 @@ import { HomePacienteComponent } from './component/paciente/home-paciente-compon
 import { HomePsicologoComponent } from './component/psicologo/home-psicologo-component/home-psicologo-component';
 import { AboutComponent } from './component/about-component/about-component';
 import { PerfilPacienteComponent } from './component/paciente/perfil-paciente-component/perfil-paciente-component';
-import { AgendarCitasPacienteComponent } from './component/paciente/agendar-citas-paciente-component/agendar-citas-paciente-component';
+import { AgendarCitasComponent } from './component/agendar-citas-component/agendar-citas-component';
 import {ContactComponent} from './component/contact-component/contact-component';
 import {SoporteComponent} from './component/soporte-component/soporte-component';
 import {FaqComponent} from './component/faq-component/faq-component';
@@ -24,6 +24,6 @@ export const routes: Routes = [
   { path: 'home-psicologo', component: HomePsicologoComponent },
   { path: 'perfil-paciente', component: PerfilPacienteComponent },
   { path: 'perfil-psicologo', component: PerfilPsicologoComponent },
-  { path: 'agendar-citas-paciente', component: AgendarCitasPacienteComponent },
+  { path: 'agendar-citas', component: AgendarCitasComponent },
 
 ];

@@ -52,6 +52,13 @@ export class Psicologo {
   usuario!: Usuario;
 }
 
+export class Especialidad {
+  idEspecialidad: number = 0;
+  nombre!: string;
+  categoria!: string;
+  activo: boolean = true;
+}
+
 export class ContactoMensaje {
   idMensaje?: number = 0;
   nombre!: string;
@@ -59,6 +66,18 @@ export class ContactoMensaje {
   asunto!: string;
   mensaje!: string;
   fecha?: string;
+}
+
+export class Cita {
+  idCita?: number = 0;
+  codigo!: number;
+  paciente!: string;
+  psicologo!: string;
+  especialidad!: string;
+  hora!: string;
+  precio!: number;
+  descripcion!: string;
+  estado: string = "pendiente";
 }
 
 export interface ErrorResponse {

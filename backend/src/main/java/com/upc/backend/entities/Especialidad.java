@@ -12,6 +12,7 @@ import lombok.*;
 public class Especialidad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_especialidad")
     private Long idEspecialidad;
 
     @Column(nullable = false)
