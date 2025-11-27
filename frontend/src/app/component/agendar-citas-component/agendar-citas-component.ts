@@ -1,5 +1,6 @@
 import {Component, inject, signal} from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import {FormsModule ,FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 import {CitaService} from '../../services/cita-service';
 import {RoutingService} from '../../services/routing-service';
@@ -12,7 +13,7 @@ import {EspecialidadService} from '../../services/especialidad-service';
 @Component({
   selector: 'app-agendar-citas-component',
   standalone: true,
-  imports: [RouterModule, ReactiveFormsModule],
+  imports: [RouterModule, ReactiveFormsModule,CommonModule,FormsModule],
   templateUrl: './agendar-citas-component.html',
   styleUrl: './agendar-citas-component.css',
 })
@@ -66,9 +67,8 @@ export class AgendarCitasComponent {
     console.log('CitaComponent');
     this.citaForm = this.fb.group({
       codigo: ['', [Validators.required, Validators.minLength(2)]],
-      paciente: ['', [Validators.required, Validators.minLength(2)]],
-      psicologo: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
-      especialidad: ['', Validators.required],
+      paciente: ['', Validators.required],
+      psicologo: ['', Validators.required],
       hora: ['', Validators.required],
       precio: ['', Validators.required],
       descripcion: ['', Validators.required]
@@ -150,5 +150,24 @@ export class AgendarCitasComponent {
 
   goPerfil() {
     this.roleRouting.goPerfil();
+  }
+  getFieldError(fieldName: string): string | null {
+    const field = this.citaForm.get(fieldName);
+
+    if (!field?.touched) {
+      return null;
+    }
+
+    if (field.hasError('required')) {
+      return 'Este campo es requerido';
+    }
+    if (field.hasError('email')) {
+      return 'Ingresa un email válido';
+    }
+    if (field.hasError('minlength')) {
+      const minLength = field.errors?.['minlength'].requiredLength;
+      return `Mínimo ${minLength} caracteres`;
+    }
+    return null;
   }
 }

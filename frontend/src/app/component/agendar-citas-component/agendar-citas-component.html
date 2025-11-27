@@ -33,7 +33,7 @@
           <label for="codigo">Código de la Cita</label>
           <input type="number" id="codigo" formControlName="codigo" placeholder="123456" required />
           @if (getFieldError('nombre')) {
-            <span class="field-error">{{ getFieldError('nombre') }}</span>
+            <span class="field-error">{{ getFieldError('codigo') }}</span>
           }
         </div>
 
@@ -97,7 +97,7 @@
         <button
           type="submit"
           class="btn btn-primary"
-          [disabled]="isLoading()"
+          [disabled]="isLoading() || citaForm.invalid"
         >
           @if (isLoading()) {
             Agendando Cita...

@@ -9,6 +9,7 @@ export const loginInterceptor: HttpInterceptorFn = (req, next) => {
 
   console.log('🔒 Interceptor ejecutado');
   console.log('🔑 Token encontrado:', token ? 'SÍ' : 'NO');
+  console.log('🌐 URL de la petición:', req.url);
 
   // Clonar la petición solo si hay token
   const authReq = token

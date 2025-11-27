@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {environment} from '../../environments/environmet';
 import {HttpClient} from '@angular/common/http';
-import {Paciente} from '../model/interfaces';
+import {Especialidad, Paciente} from '../model/interfaces';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -16,17 +16,17 @@ export class EspecialidadService {
   registrar(especialidad: Especialidad): Observable<any>{
     return this.http.post(this.url + "/especialidad/registrar", especialidad);
   }
-  modificar(paciente: Paciente): Observable<any>{
-    return this.http.put(this.url + "/paciente/modificar", paciente);
+  eliminar(nombre: string): Observable<any>{
+    return this.http.delete(`${this.url}/especialidad/eliminar/${nombre}`);
   }
-  listarPorDni(dni: string): Observable<any>{
-    console.log(this.url + "/paciente/listarPorDni/" + dni)
-    return this.http.get<Paciente>(`${this.url}/paciente/listarPorDni/${dni}`);
+  listarPorCategoria(categoria: string): Observable<any>{
+    console.log(this.url + "/especialidad/listarPorCategoria/" + categoria)
+    return this.http.get<Especialidad>(`${this.url}/especialidad/listarPorCategoria/${categoria}`);
   }
-  listarPacientesActivos(): Observable<any>{
-    return this.http.get<Paciente[]>(this.url + "/paciente/listarPacientesActivos");
+  listarEspecialidadesActivas(): Observable<any>{
+    return this.http.get<Especialidad[]>(this.url + "/especialidad/listarEspecialidadesActivas");
   }
-  listarPacientes(): Observable<any>{
-    return this.http.get<Paciente[]>(this.url + "/paciente/listarPacientes");
+  listarEspecialidades(): Observable<any>{
+    return this.http.get<Especialidad[]>(this.url + "/especialidad/listarEspecialidades");
   }
 }

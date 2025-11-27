@@ -1,8 +1,8 @@
-import {inject, Injectable} from '@angular/core';
-import {environment} from '../../environments/environmet';
-import {HttpClient} from '@angular/common/http';
-import {Observable, Subject} from 'rxjs';
-import {Cita} from '../model/interfaces';
+import { inject, Injectable } from '@angular/core';
+import { environment } from '../../environments/environmet';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Cita } from '../model/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -11,31 +11,31 @@ export class CitaService {
   private url = environment.apiURL;
   private http: HttpClient = inject(HttpClient);
 
-  constructor() { }
+  constructor() {}
 
-  registrar(cita: Cita): Observable<any>{
-    return this.http.post(this.url + "/cita/registrar", cita);
-  }
-  modificar(cita: Cita): Observable<any>{
-    return this.http.put(this.url + "/cita/modificar", cita);
+  registrar(cita: Cita): Observable<any> {
+    return this.http.post(this.url + '/cita/registrar', cita);
   }
 
-  listarPorPaciente(paciente: string): Observable<any>{
-    console.log(this.url + "/cita/listarPorPaciente/" + paciente)
-    return this.http.get<Cita>(`${this.url}/cita/listarPorPaciente/${paciente}`);
+  modificar(codigo: number, cita: Cita): Observable<any> {
+    return this.http.put(`${this.url}/cita/modificar/${codigo}`, cita);
   }
 
-  listarPorPsicologo(psicologo: string): Observable<any>{
-    console.log(this.url + "/cita/listarPorPsicologo/" + psicologo)
-    return this.http.get<Cita>(`${this.url}/cita/listarPorPsicologo/${psicologo}`);
+  listarPorPaciente(paciente: string): Observable<Cita[]> {
+    return this.http.get<Cita[]>(`${this.url}/cita/listarPorPaciente/${paciente}`);
   }
 
-  listarPorEspecialidad(especialidad: string): Observable<any>{
-    console.log(this.url + "/cita/listarPorEspecialidad/" + especialidad)
-    return this.http.get<Cita>(`${this.url}/cita/listarPorEspecialidad/${especialidad}`);
+  listarPorPsicologo(psicologo: string): Observable<Cita[]> {
+    return this.http.get<Cita[]>(`${this.url}/cita/listarPorPsicologo/${psicologo}`);
   }
 
-  listarCitas(): Observable<any>{
-    return this.http.get<Cita[]>(this.url + "/psicologo/listarCitas");
+  listarPorEspecialidad(especialidad: string): Observable<Cita[]> {
+    return this.http.get<Cita[]>(
+      `${this.url}/cita/listarPorEspecialidad/${especialidad}`
+    );
+  }
+
+  listarCitas(): Observable<Cita[]> {
+    return this.http.get<Cita[]>(this.url + '/cita/listarCitas');
   }
 }
