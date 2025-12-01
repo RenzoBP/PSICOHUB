@@ -9,5 +9,5 @@ public interface IPsicologoService {
     public PsicologoDTO modificar(String dni, PsicologoDTO psicologoDTO);
     public PsicologoDTO listarPorDni(String dni);
     public List<PsicologoDTO> listarPsicologosActivos();
-    public List<PsicologoDTO> listarPsicologos();
+    public List<PsicologoDTO> listarTodos();
 }

@@ -52,13 +52,6 @@ export class Psicologo {
   usuario!: Usuario;
 }
 
-export class Especialidad {
-  idEspecialidad: number = 0;
-  nombre!: string;
-  categoria!: string;
-  activo: boolean = true;
-}
-
 export class ContactoMensaje {
   idMensaje?: number = 0;
   nombre!: string;
@@ -68,16 +61,11 @@ export class ContactoMensaje {
   fecha?: string;
 }
 
-export class Cita {
-  idCita?: number = 0;
-  codigo!: number;
-  paciente!: { idPaciente: number };
-  psicologo!: { idPsicologo: number };
-  especialidad!: { idEspecialidad: number };
-  hora!: string;
-  precio!: number;
-  descripcion!: string;
-  estado: string = "pendiente";
+export interface Especialidad {
+  idEspecialidad?: number;
+  nombre: string;
+  categoria: string;
+  activo?: boolean;
 }
 
 export interface ErrorResponse {
@@ -85,4 +73,19 @@ export interface ErrorResponse {
   error: string;
   message: string;
   timestamp: string;
+}
+
+export interface Cita {
+  idCita?: number;
+  paciente: Paciente;
+  psicologo: Psicologo;
+  especialidad: Especialidad;
+  fecha: string;
+  hora: string;
+  modalidad: 'Virtual' | 'Presencial';
+  estado: 'Pendiente' | 'Confirmada' | 'Cancelada' | 'Completada';
+  motivoConsulta?: string;
+  motivoCancelacion?: string;
+  enlaceVirtual?: string;
+  activo?: boolean;
 }

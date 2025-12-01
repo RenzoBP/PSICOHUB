@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface IContactoMensajeService {
     public ContactoMensajeDTO registrar(ContactoMensajeDTO contactoMensajeDTO);
-    public List<ContactoMensajeDTO> listarContactoMensajes();
+    public List<ContactoMensajeDTO> listarTodo();
 }

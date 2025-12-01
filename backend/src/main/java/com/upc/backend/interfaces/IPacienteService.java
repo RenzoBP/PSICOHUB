@@ -9,5 +9,5 @@ public interface IPacienteService {
     public PacienteDTO modificar(String dni, PacienteDTO pacienteDTO);
     public PacienteDTO listarPorDni(String dni);
     public List<PacienteDTO> listarPacientesActivos();
-    public List<PacienteDTO> listarPacientes();
+    public List<PacienteDTO> listarTodos();
 }

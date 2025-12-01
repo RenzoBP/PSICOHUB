@@ -1,0 +1,151 @@
+<div class="especialidades-container">
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container navbar-content">
+      <div class="logo">
+        <h1>Psico<span>Hub</span></h1>
+      </div>
+      <nav class="nav-links">
+        <a (click)="goHome()">Home</a>
+        <a (click)="goPerfil()">Perfil</a>
+        <a [routerLink]="['/especialidades']" routerLinkActive="active">Especialidades</a>
+        <a [routerLink]="['/contact']" routerLinkActive="active">Contacto</a>
+        <a [routerLink]="['/about']" routerLinkActive="active">Sobre Nosotros</a>
+      </nav>
+      <button class="btn-logout" (click)="logout()">Cerrar Sesión</button>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main-content">
+    <div class="content-header">
+      <h2>Gestión de Especialidades</h2>
+      <button class="btn btn-primary" (click)="abrirModal()">
+        ➕ Nueva Especialidad
+      </button>
+    </div>
+
+    <!-- MENSAJES -->
+    @if (successMessage()) {
+      <div class="alert alert-success">
+        {{ successMessage() }}
+      </div>
+    }
+
+    @if (errorMessage()) {
+      <div class="alert alert-error">
+        {{ errorMessage() }}
+      </div>
+    }
+
+    <!-- FILTROS -->
+    <div class="filtros">
+      <button
+        class="btn-filtro"
+        [class.active]="categoriaFiltro() === 'todas'"
+        (click)="filtrarPorCategoria('todas')"
+      >
+        Todas
+      </button>
+      @for (cat of categorias; track cat) {
+        <button
+          class="btn-filtro"
+          [class.active]="categoriaFiltro() === cat"
+          (click)="filtrarPorCategoria(cat)"
+        >
+          {{ cat }}
+        </button>
+      }
+    </div>
+
+    <!-- LISTA DE ESPECIALIDADES -->
+    @if (isLoadingData()) {
+      <div class="loading">Cargando especialidades...</div>
+    } @else {
+      <div class="especialidades-grid">
+        @for (esp of especialidadesFiltradas(); track esp.idEspecialidad) {
+          <div class="especialidad-card">
+            <div class="card-header">
+              <h3>{{ esp.nombre }}</h3>
+              <span class="badge">{{ esp.categoria }}</span>
+            </div>
+            <div class="card-actions">
+              <button
+                class="btn-delete"
+                (click)="eliminarEspecialidad(esp.nombre)"
+                title="Eliminar especialidad"
+              >
+                🗑️ Eliminar
+              </button>
+            </div>
+          </div>
+        } @empty {
+          <div class="empty-state">
+            <p>No hay especialidades registradas en esta categoría</p>
+          </div>
+        }
+      </div>
+    }
+  </main>
+
+  <!-- MODAL PARA NUEVA ESPECIALIDAD -->
+  @if (showModal()) {
+    <div class="modal-overlay" (click)="cerrarModal()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h3>Nueva Especialidad</h3>
+          <button class="btn-close" (click)="cerrarModal()">✕</button>
+        </div>
+
+        <form [formGroup]="especialidadForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="nombre">Nombre de la Especialidad</label>
+            <input
+              type="text"
+              id="nombre"
+              formControlName="nombre"
+              placeholder="Ej: Terapia Cognitivo Conductual"
+            />
+            @if (getFieldError('nombre')) {
+              <span class="field-error">{{ getFieldError('nombre') }}</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="categoria">Categoría</label>
+            <select id="categoria" formControlName="categoria">
+              <option value="">Selecciona una categoría</option>
+              @for (cat of categorias; track cat) {
+                <option [value]="cat">{{ cat }}</option>
+              }
+            </select>
+            @if (getFieldError('categoria')) {
+              <span class="field-error">{{ getFieldError('categoria') }}</span>
+            }
+          </div>
+
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="cerrarModal()"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="isLoading() || especialidadForm.invalid"
+            >
+              @if (isLoading()) {
+                Guardando...
+              } @else {
+                Guardar
+              }
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+</div>

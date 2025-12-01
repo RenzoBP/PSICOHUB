@@ -1,25 +1,26 @@
 package com.upc.backend.repositories;
 
 import com.upc.backend.entities.Cita;
-import com.upc.backend.entities.Especialidad;
-import com.upc.backend.entities.Psicologo;
-import com.upc.backend.entities.Paciente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
 public interface CitaRepository extends JpaRepository<Cita, Long> {
-    @Query("SELECT c FROM Cita c WHERE c.especialidad.nombre = :especialidad AND c.estado = 'pendiente'")
-    List<Cita> listarPorEspecialidad(Especialidad especialidad);
+    @Query("SELECT c FROM Cita c WHERE c.paciente.idPaciente = :pacienteId AND c.activo = true")
+    List<Cita> findByPacienteId(Long pacienteId);
 
-    @Query("SELECT c FROM Cita c WHERE c.psicologo.nombre = :psicologo AND c.estado = 'pendiente'")
-    List<Cita> listarPorPsicologo(Psicologo psicologo);
+    @Query("SELECT c FROM Cita c WHERE c.psicologo.idPsicologo = :psicologoId AND c.activo = true")
+    List<Cita> findByPsicologoId(Long psicologoId);
 
-    @Query("SELECT c FROM Cita c WHERE c.paciente.nombre = :paciente AND c.estado = 'pendiente'")
-    List<Cita> listarPorPaciente(Paciente paciente);
+    @Query("SELECT c FROM Cita c WHERE c.estado = :estado AND c.activo = true")
+    List<Cita> findByEstado(String estado);
 
-    Cita findByCodigo(Long codigo);
+    @Query("SELECT c FROM Cita c WHERE c.psicologo.idPsicologo = :psicologoId AND c.fecha = :fecha AND c.activo = true")
+    List<Cita> findByPsicologoAndFecha(Long psicologoId, LocalDate fecha);
+
+    @Query("SELECT c FROM Cita c WHERE c.activo = true ORDER BY c.fecha DESC, c.hora DESC")
+    List<Cita> findAllActive();
 }

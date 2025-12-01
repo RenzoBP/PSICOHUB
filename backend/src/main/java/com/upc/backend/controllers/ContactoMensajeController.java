@@ -1,6 +1,7 @@
 package com.upc.backend.controllers;
 
 import com.upc.backend.dtos.ContactoMensajeDTO;
+import com.upc.backend.dtos.EspecialidadDTO;
 import com.upc.backend.services.ContactoMensajeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,17 +37,9 @@ public class ContactoMensajeController {
         }
     }
 
-    @GetMapping("/listarContactoMensajes")
-    public ResponseEntity<?> listarContactoMensajes() {
-        try {
-            List<ContactoMensajeDTO> mensajes = contactoMensajeService.listarContactoMensajes();
-            return ResponseEntity.ok(mensajes);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(Map.of(
-                            "success", false,
-                            "message", e.getMessage()
-                    ));
-        }
+    @PreAuthorize("hasAnyRole('ADMIN', 'PSICOLOGO', 'PACIENTE')")
+    @GetMapping("/listarTodo")
+    public List<ContactoMensajeDTO> listarTodo() {
+        return contactoMensajeService.listarTodo();
     }
 }

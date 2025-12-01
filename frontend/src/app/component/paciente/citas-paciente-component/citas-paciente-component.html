@@ -1,0 +1,296 @@
+<div class="citas-container">
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container navbar-content">
+      <div class="logo">
+        <h1>Psico<span>Hub</span></h1>
+      </div>
+      <nav class="nav-links">
+        <a (click)="goHome()">Home</a>
+        <a (click)="goPerfil()">Perfil</a>
+        <a [routerLink]="['/citas-paciente']" routerLinkActive="active">Mis Citas</a>
+        <a [routerLink]="['/contact']" routerLinkActive="active">Contacto</a>
+        <a [routerLink]="['/about']" routerLinkActive="active">Sobre Nosotros</a>
+      </nav>
+      <button class="btn-logout" (click)="logout()">Cerrar Sesión</button>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main-content">
+    <div class="content-header">
+      <h2>Mis Citas Virtuales</h2>
+      <button class="btn btn-primary" (click)="abrirModal()">
+        ➕ Agendar Nueva Cita
+      </button>
+    </div>
+
+    <!-- MENSAJES -->
+    @if (successMessage()) {
+      <div class="alert alert-success">{{ successMessage() }}</div>
+    }
+    @if (errorMessage()) {
+      <div class="alert alert-error">{{ errorMessage() }}</div>
+    }
+
+    <!-- FILTROS -->
+    <div class="filtros">
+      <button
+        class="btn-filtro"
+        [class.active]="filtroEstado() === 'todas'"
+        (click)="filtroEstado.set('todas')"
+      >
+        Todas
+      </button>
+      <button
+        class="btn-filtro"
+        [class.active]="filtroEstado() === 'Pendiente'"
+        (click)="filtroEstado.set('Pendiente')"
+      >
+        Pendientes
+      </button>
+      <button
+        class="btn-filtro"
+        [class.active]="filtroEstado() === 'Confirmada'"
+        (click)="filtroEstado.set('Confirmada')"
+      >
+        Confirmadas
+      </button>
+      <button
+        class="btn-filtro"
+        [class.active]="filtroEstado() === 'Completada'"
+        (click)="filtroEstado.set('Completada')"
+      >
+        Completadas
+      </button>
+      <button
+        class="btn-filtro"
+        [class.active]="filtroEstado() === 'Cancelada'"
+        (click)="filtroEstado.set('Cancelada')"
+      >
+        Canceladas
+      </button>
+    </div>
+
+    <!-- LISTA DE CITAS -->
+    @if (isLoadingData()) {
+      <div class="loading">Cargando citas...</div>
+    } @else {
+      <div class="citas-grid">
+        @for (cita of citasFiltradas; track cita.idCita) {
+          <div class="cita-card">
+            <div class="card-header">
+              <div>
+                <h3>Dr. {{ cita.psicologoNombre }} {{ cita.psicologoApellido }}</h3>
+                <p class="especialidad">{{ cita.especialidadNombre }}</p>
+              </div>
+              <span class="badge" [ngClass]="getEstadoClass(cita.estado)">
+                {{ cita.estado }}
+              </span>
+            </div>
+
+            <div class="card-body">
+              <div class="info-row">
+                <span class="icon">📅</span>
+                <span>{{ formatearFecha(cita.fecha) }}</span>
+              </div>
+              <div class="info-row">
+                <span class="icon">🕐</span>
+                <span>{{ formatearHora(cita.hora) }}</span>
+              </div>
+              <div class="info-row">
+                <span class="icon">💻</span>
+                <span>Modalidad Virtual</span>
+              </div>
+              @if (cita.motivoConsulta) {
+                <div class="info-row motivo">
+                  <span class="icon">📝</span>
+                  <span>{{ cita.motivoConsulta }}</span>
+                </div>
+              }
+              @if (cita.enlaceVirtual && cita.estado === 'Confirmada') {
+                <div class="info-row enlace">
+                  <a [href]="cita.enlaceVirtual" target="_blank" class="btn-enlace">
+                    🔗 Unirse a la sesión virtual
+                  </a>
+                </div>
+              }
+            </div>
+
+            <div class="card-actions">
+              @if (cita.estado === 'Pendiente' || cita.estado === 'Confirmada') {
+                <button
+                  class="btn-cancelar"
+                  (click)="abrirModalCancelacion(cita)"
+                >
+                  Cancelar Cita
+                </button>
+              }
+            </div>
+          </div>
+        } @empty {
+          <div class="empty-state">
+            <p>No tienes citas {{ filtroEstado() === 'todas' ? '' : filtroEstado().toLowerCase() }}</p>
+            <button class="btn btn-primary" (click)="abrirModal()">
+              Agendar tu primera cita
+            </button>
+          </div>
+        }
+      </div>
+    }
+  </main>
+
+  <!-- MODAL AGENDAR CITA -->
+  @if (showModal()) {
+    <div class="modal-overlay" (click)="cerrarModal()">
+      <div class="modal-content modal-large" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h3>Agendar Nueva Cita Virtual</h3>
+          <button class="btn-close" (click)="cerrarModal()">✕</button>
+        </div>
+
+        <form [formGroup]="citaForm" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="psicologoId">Psicólogo</label>
+              <select id="psicologoId" formControlName="psicologoId">
+                <option value="">Selecciona un psicólogo</option>
+                @for (psi of psicologos(); track psi.idPsicologo) {
+                  <option [value]="psi.idPsicologo">
+                    Dr. {{ psi.nombre }} {{ psi.apellido }}
+                  </option>
+                }
+              </select>
+              @if (getFieldError('citaForm', 'psicologoId')) {
+                <span class="field-error">{{ getFieldError('citaForm', 'psicologoId') }}</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="especialidadId">Especialidad</label>
+              <select id="especialidadId" formControlName="especialidadId">
+                <option value="">Selecciona una especialidad</option>
+                @for (esp of especialidades(); track esp.idEspecialidad) {
+                  <option [value]="esp.idEspecialidad">
+                    {{ esp.nombre }}
+                  </option>
+                }
+              </select>
+              @if (getFieldError('citaForm', 'especialidadId')) {
+                <span class="field-error">{{ getFieldError('citaForm', 'especialidadId') }}</span>
+              }
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fecha">Fecha</label>
+              <input type="date" id="fecha" formControlName="fecha" />
+              @if (getFieldError('citaForm', 'fecha')) {
+                <span class="field-error">{{ getFieldError('citaForm', 'fecha') }}</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="hora">Hora</label>
+              <select id="hora" formControlName="hora">
+                <option value="">Selecciona un horario</option>
+                @for (horario of horariosDisponibles; track horario) {
+                  <option [value]="horario">{{ horario }}</option>
+                }
+              </select>
+              @if (getFieldError('citaForm', 'hora')) {
+                <span class="field-error">{{ getFieldError('citaForm', 'hora') }}</span>
+              }
+            </div>
+          </div>
+
+          <div class="info-box">
+            <span class="icon">💻</span>
+            <p>Todas las citas son en modalidad virtual. Recibirás un enlace para unirte a la sesión una vez confirmada.</p>
+          </div>
+
+          <div class="form-group">
+            <label for="motivoConsulta">Motivo de la Consulta</label>
+            <textarea
+              id="motivoConsulta"
+              formControlName="motivoConsulta"
+              rows="4"
+              placeholder="Describe brevemente el motivo de tu consulta..."
+            ></textarea>
+            @if (getFieldError('citaForm', 'motivoConsulta')) {
+              <span class="field-error">{{ getFieldError('citaForm', 'motivoConsulta') }}</span>
+            }
+          </div>
+
+          <div class="modal-actions">
+            <button type="button" class="btn btn-secondary" (click)="cerrarModal()">
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="isLoading() || citaForm.invalid"
+            >
+              @if (isLoading()) {
+                Agendando...
+              } @else {
+                Agendar Cita Virtual
+              }
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+  <!-- MODAL CANCELAR CITA -->
+  @if (showCancelModal()) {
+    <div class="modal-overlay" (click)="cerrarModalCancelacion()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h3>Cancelar Cita</h3>
+          <button class="btn-close" (click)="cerrarModalCancelacion()">✕</button>
+        </div>
+
+        <form [formGroup]="cancelacionForm" (ngSubmit)="confirmarCancelacion()">
+          <p class="warning-text">
+            ¿Estás seguro de que deseas cancelar esta cita?
+          </p>
+
+          <div class="form-group">
+            <label for="motivoCancelacion">Motivo de Cancelación</label>
+            <textarea
+              id="motivoCancelacion"
+              formControlName="motivoCancelacion"
+              rows="4"
+              placeholder="Por favor, indica el motivo de la cancelación..."
+            ></textarea>
+            @if (getFieldError('cancelacionForm', 'motivoCancelacion')) {
+              <span class="field-error">
+                {{ getFieldError('cancelacionForm', 'motivoCancelacion') }}
+              </span>
+            }
+          </div>
+
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="cerrarModalCancelacion()"
+            >
+              No, mantener cita
+            </button>
+            <button
+              type="submit"
+              class="btn btn-danger"
+              [disabled]="cancelacionForm.invalid"
+            >
+              Sí, cancelar cita
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+</div>

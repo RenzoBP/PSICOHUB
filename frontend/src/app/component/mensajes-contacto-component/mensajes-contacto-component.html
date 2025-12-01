@@ -1,0 +1,134 @@
+<div class="mensajes-container">
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container navbar-content">
+      <div class="logo">
+        <h1>Psico<span>Hub</span></h1>
+      </div>
+      <nav class="nav-links">
+        <a (click)="goHome()">Home</a>
+        <a (click)="goPerfil()">Perfil</a>
+        <a [routerLink]="['/mensajes-contacto']" routerLinkActive="active">Mensajes</a>
+        <a [routerLink]="['/contact']" routerLinkActive="active">Contacto</a>
+        <a [routerLink]="['/about']" routerLinkActive="active">Sobre Nosotros</a>
+      </nav>
+      <button class="btn-logout" (click)="logout()">Cerrar Sesión</button>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main-content">
+    <div class="content-header">
+      <h2>Mensajes de Contacto</h2>
+    </div>
+
+    @if (errorMessage()) {
+      <div class="alert alert-error">{{ errorMessage() }}</div>
+    }
+
+    @if (successMessage()) {
+      <div class="alert alert-success">{{ successMessage() }}</div>
+    }
+
+    <!-- FILTROS -->
+    <div class="filtros">
+      <button
+        class="btn-filtro"
+        [class.active]="filtroAsunto() === 'todos'"
+        (click)="filtrarPorAsunto('todos')"
+      >
+        Todos
+      </button>
+      @for (asunto of asuntos; track asunto) {
+        <button
+          class="btn-filtro"
+          [class.active]="filtroAsunto() === asunto"
+          (click)="filtrarPorAsunto(asunto)"
+        >
+          {{ asunto }}
+        </button>
+      }
+    </div>
+
+    <!-- LISTA DE MENSAJES -->
+    @if (isLoadingData()) {
+      <div class="loading">Cargando mensajes...</div>
+    } @else {
+      <div class="mensajes-grid">
+        @for (mensaje of mensajesFiltrados(); track mensaje.idMensaje) {
+          <div class="mensaje-card" (click)="verDetalle(mensaje)">
+            <div class="card-header">
+              <div>
+                <h3>{{ mensaje.nombre }}</h3>
+                <p class="email">{{ mensaje.email }}</p>
+              </div>
+              <span class="fecha">{{ formatearFecha(mensaje.fecha) }}</span>
+            </div>
+            <div class="card-body">
+              <span class="asunto-badge">{{ mensaje.asunto }}</span>
+              <p class="mensaje-preview">{{ mensaje.mensaje }}</p>
+            </div>
+          </div>
+        } @empty {
+          <div class="empty-state">
+            <p>No hay mensajes {{ filtroAsunto() === 'todos' ? '' : 'de ' + filtroAsunto() }}</p>
+          </div>
+        }
+      </div>
+    }
+  </main>
+
+  <!-- MODAL DETALLE -->
+  @if (showModal()) {
+    <div class="modal-overlay" (click)="cerrarModal()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h3>Detalle del Mensaje</h3>
+          <button class="btn-close" (click)="cerrarModal()">✕</button>
+        </div>
+
+        @if (mensajeSeleccionado(); as mensaje) {
+          <div class="detalle-content">
+            <div class="detalle-section">
+              <h4>Información del Remitente</h4>
+              <div class="detalle-item">
+                <span class="label">Nombre:</span>
+                <span class="value">{{ mensaje.nombre }}</span>
+              </div>
+              <div class="detalle-item">
+                <span class="label">Email:</span>
+                <span class="value">{{ mensaje.email }}</span>
+              </div>
+              <div class="detalle-item">
+                <span class="label">Fecha:</span>
+                <span class="value">{{ formatearFecha(mensaje.fecha) }}</span>
+              </div>
+            </div>
+
+            <div class="detalle-section">
+              <h4>Asunto</h4>
+              <span class="asunto-badge">{{ mensaje.asunto }}</span>
+            </div>
+
+            <div class="detalle-section">
+              <h4>Mensaje</h4>
+              <p class="mensaje-texto">{{ mensaje.mensaje }}</p>
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <a
+              [href]="'mailto:' + mensaje.email"
+              class="btn btn-primary"
+            >
+              📧 Responder
+            </a>
+            <button class="btn btn-secondary" (click)="cerrarModal()">
+              Cerrar
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

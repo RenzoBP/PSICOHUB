@@ -214,7 +214,7 @@ public class PsicologoService implements IPsicologoService {
     }
 
     @Override
-    public List<PsicologoDTO> listarPsicologos(){
+    public List<PsicologoDTO> listarTodos(){
         return psicologoRepository.findAll()
                 .stream()
                 .map(psicologo -> modelMapper.map(psicologo, PsicologoDTO.class))

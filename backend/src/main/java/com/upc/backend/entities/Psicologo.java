@@ -15,7 +15,6 @@ import java.time.LocalDate;
 public class Psicologo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_psicologo")
     private Long idPsicologo;
 
     @Column(length = 50, nullable = false)

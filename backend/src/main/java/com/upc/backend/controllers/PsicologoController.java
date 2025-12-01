@@ -1,6 +1,5 @@
 package com.upc.backend.controllers;
 
-import com.upc.backend.dtos.CitaDTO;
 import com.upc.backend.dtos.PsicologoDTO;
 import com.upc.backend.services.PsicologoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,9 +66,9 @@ public class PsicologoController {
     }
 
     @PreAuthorize("hasRole('PSICOLOGO')")
-    @GetMapping("/listarPsicologos")
-    public List<PsicologoDTO> listarPsicologos() {
-        return psicologoService.listarPsicologos();
+    @GetMapping("/listarTodo")
+    public List<PsicologoDTO> listarTodos() {
+        return psicologoService.listarTodos();
     }
 }
 

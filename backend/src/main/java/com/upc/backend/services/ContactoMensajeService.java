@@ -29,7 +29,7 @@ public class ContactoMensajeService implements IContactoMensajeService {
     }
 
     @Override
-    public List<ContactoMensajeDTO> listarContactoMensajes(){
+    public List<ContactoMensajeDTO> listarTodo(){
         return contactoMensajeRepository.findAll()
                 .stream()
                 .map(contactoMensaje -> modelMapper.map(contactoMensaje, ContactoMensajeDTO.class))

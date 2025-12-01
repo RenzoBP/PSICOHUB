@@ -8,6 +8,8 @@
       <nav class="nav-links">
         <a (click)="goHome()">Home</a>
         <a (click)="goPerfil()">Perfil</a>
+        <a [routerLink]="['/citas-psicologo']" routerLinkActive="active">Mis Citas</a>
+        <a [routerLink]="['/especialidades']" routerLinkActive="active">Especialidades</a>
         <a [routerLink]="['/contact']" routerLinkActive="active">Contacto</a>
         <a [routerLink]="['/about']" routerLinkActive="active">Sobre Nosotros</a>
       </nav>
@@ -19,7 +21,7 @@
     <section class="welcome">
       <h2>Bienvenido a PsicoHub 🧠</h2>
       <p>
-        Aquí podrás gestionar tus citas, actualizar tu perfil, y acceder a recursos que te ayudarán en tu bienestar emocional.
+        Gestiona tus citas con pacientes, actualiza especialidades y administra tu perfil profesional.
       </p>
     </section>
 
@@ -28,15 +30,15 @@
         <!-- Mis Citas -->
         <div class="card">
           <h3>Mis Citas</h3>
-          <p>Revisa tus próximas sesiones y tu historial de atención.</p>
-          <button class="btn-primary" [routerLink]="['/agendar-citas']">Ver citas</button>
+          <p>Revisa tus próximas sesiones y gestiona las citas con tus pacientes.</p>
+          <button class="btn-primary" [routerLink]="['/citas-psicologo']">Ver citas</button>
         </div>
 
-        <!-- Agendar Cita -->
+        <!-- Especialidades -->
         <div class="card">
-          <h3>Agendar Cita</h3>
-          <p>Reserva una nueva sesión con el psicólogo y la especialidad que prefieras.</p>
-          <button class="btn-outline" [routerLink]="['/agendar-citas']">Agendar</button>
+          <h3>Especialidades</h3>
+          <p>Gestiona las especialidades disponibles en la plataforma.</p>
+          <button class="btn-outline" [routerLink]="['/especialidades']">Ver especialidades</button>
         </div>
 
         <!-- Soporte -->
@@ -44,6 +46,13 @@
           <h3>Soporte</h3>
           <p>¿Tienes dudas o necesitas ayuda? Contáctanos en cualquier momento.</p>
           <button class="btn-primary" [routerLink]="['/soporte']">Contactar</button>
+        </div>
+
+        <!-- FAQ -->
+        <div class="card">
+          <h3>Preguntas Frecuentes</h3>
+          <p>Encuentra respuestas rápidas a las dudas más comunes.</p>
+          <button class="btn-outline" [routerLink]="['/faq']">Ver FAQ</button>
         </div>
       </section>
     </div>

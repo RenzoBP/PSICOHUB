@@ -51,7 +51,7 @@ public class EspecialidadService implements IEspecialidadService {
                 .toList();
     }
     @Override
-    public List<EspecialidadDTO> listarEspecialidades(){
+    public List<EspecialidadDTO> listarTodo(){
         return especialidadRepository.findAll()
                 .stream()
                 .map(especialidad -> modelMapper.map(especialidad, EspecialidadDTO.class))

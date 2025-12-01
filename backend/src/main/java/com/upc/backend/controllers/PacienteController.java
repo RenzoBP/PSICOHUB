@@ -66,8 +66,8 @@ public class PacienteController {
     }
 
     @PreAuthorize("hasRole('PACIENTE')")
-    @GetMapping("/listarPacientes")
-    public List<PacienteDTO> listarPacientes() {
-        return pacienteService.listarPacientes();
+    @GetMapping("/listarTodo")
+    public List<PacienteDTO> listarTodos() {
+        return pacienteService.listarTodos();
     }
 }

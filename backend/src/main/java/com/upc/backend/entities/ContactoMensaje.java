@@ -14,7 +14,6 @@ import java.time.LocalDate;
 public class ContactoMensaje {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_mensaje")
     private Long idMensaje;
 
     @Column(nullable = false)

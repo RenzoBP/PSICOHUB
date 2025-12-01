@@ -2,7 +2,7 @@ package com.upc.backend.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
@@ -14,33 +14,41 @@ import java.time.LocalTime;
 public class Cita {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_cita")
     private Long idCita;
 
-    @Column(nullable = false)
-    private Long codigo;
-
     @ManyToOne
-    @JoinColumn(name = "paciente_id", referencedColumnName = "id_paciente")
+    @JoinColumn(name = "paciente_id", nullable = false)
     private Paciente paciente;
 
     @ManyToOne
-    @JoinColumn(name = "psicologo_id", referencedColumnName = "id_psicologo")
+    @JoinColumn(name = "psicologo_id", nullable = false)
     private Psicologo psicologo;
 
     @ManyToOne
-    @JoinColumn(name = "especialidad_id", referencedColumnName = "id_especialidad")
+    @JoinColumn(name = "especialidad_id", nullable = false)
     private Especialidad especialidad;
+
+    @Column(nullable = false)
+    private LocalDate fecha;
 
     @Column(nullable = false)
     private LocalTime hora;
 
-    @Column(nullable = false)
-    private Double precio;
+    @Column(length = 20, nullable = false)
+    private String modalidad; // "Virtual" o "Presencial"
+
+    @Column(length = 20, nullable = false)
+    private String estado; // "Pendiente", "Confirmada", "Cancelada", "Completada"
+
+    @Column(length = 500)
+    private String motivoConsulta;
+
+    @Column(length = 500)
+    private String motivoCancelacion;
+
+    @Column(length = 200)
+    private String enlaceVirtual; // Para citas virtuales
 
     @Column(nullable = false)
-    private String descripcion;
-
-    @Column(nullable = false)
-    private String estado = "pendiente";
+    private Boolean activo = true;
 }

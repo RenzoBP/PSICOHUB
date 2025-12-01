@@ -41,7 +41,7 @@ export class PerfilPacienteComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('Verificando autenticación...');
-    console.log('Token en localStorage:', localStorage.getItem('user_token'));
+    console.log('Token en localStorage:', localStorage.getItem('token'));
     console.log('DNI en localStorage:', localStorage.getItem('user_dni'));
     console.log('Usuario actual:', this.authService.currentUser());
 

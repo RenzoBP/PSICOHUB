@@ -10,6 +10,7 @@ import { Paciente } from '../model/interfaces';
 export class PacienteService {
   private url = environment.apiURL;
   private http: HttpClient = inject(HttpClient);
+  private listaCambio = new Subject<Paciente[]>();
 
   constructor() { }
 
@@ -26,7 +27,19 @@ export class PacienteService {
   listarPacientesActivos(): Observable<any>{
     return this.http.get<Paciente[]>(this.url + "/paciente/listarPacientesActivos");
   }
-  listarPacientes(): Observable<any>{
-    return this.http.get<Paciente[]>(this.url + "/paciente/listarPacientes");
+  listarTodo(): Observable<any>{
+    return this.http.get<Paciente[]>(this.url + "/paciente/listarTodo");
+  }
+  setList(listaNueva : Paciente[]){
+    this.listaCambio.next(listaNueva);//enviar la nueva lista a los suscriptores
+  }
+  getListaCambio(): Observable<Paciente[]>{
+    return this.listaCambio.asObservable();
+  }
+  actualizarLista(): void {
+    this.listarTodo().subscribe({
+      next: (data) => this.setList(data),   //envia la nueva lista a los suscriptores
+      error: (err) => console.error('Error actualizando lista', err)
+    });
   }
 }

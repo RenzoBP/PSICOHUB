@@ -1,0 +1,254 @@
+<div class="citas-container">
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container navbar-content">
+      <div class="logo">
+        <h1>Psico<span>Hub</span></h1>
+      </div>
+      <nav class="nav-links">
+        <a (click)="goHome()">Home</a>
+        <a (click)="goPerfil()">Perfil</a>
+        <a [routerLink]="['/citas-psicologo']" routerLinkActive="active">Mis Citas</a>
+        <a [routerLink]="['/especialidades']" routerLinkActive="active">Especialidades</a>
+        <a [routerLink]="['/contact']" routerLinkActive="active">Contacto</a>
+        <a [routerLink]="['/about']" routerLinkActive="active">Sobre Nosotros</a>
+      </nav>
+      <button class="btn-logout" (click)="logout()">Cerrar Sesión</button>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main-content">
+    <div class="content-header">
+      <h2>Gestión de Citas</h2>
+    </div>
+
+    <!-- ESTADÍSTICAS RÁPIDAS -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">📅</div>
+        <div class="stat-info">
+          <h3>{{ citasHoy.length }}</h3>
+          <p>Citas Hoy</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⏳</div>
+        <div class="stat-info">
+          <h3>{{ citasPendientes.length }}</h3>
+          <p>Pendientes</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">✅</div>
+        <div class="stat-info">
+          <h3>{{ citasConfirmadas.length }}</h3>
+          <p>Confirmadas</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MENSAJES -->
+    @if (successMessage()) {
+      <div class="alert alert-success">{{ successMessage() }}</div>
+    }
+    @if (errorMessage()) {
+      <div class="alert alert-error">{{ errorMessage() }}</div>
+    }
+
+    <!-- FILTROS -->
+    <div class="filtros">
+      <button
+        class="btn-filtro"
+        [class.active]="filtroEstado() === 'todas'"
+        (click)="filtroEstado.set('todas')"
+      >
+        Todas
+      </button>
+      <button
+        class="btn-filtro"
+        [class.active]="filtroEstado() === 'Pendiente'"
+        (click)="filtroEstado.set('Pendiente')"
+      >
+        Pendientes
+      </button>
+      <button
+        class="btn-filtro"
+        [class.active]="filtroEstado() === 'Confirmada'"
+        (click)="filtroEstado.set('Confirmada')"
+      >
+        Confirmadas
+      </button>
+      <button
+        class="btn-filtro"
+        [class.active]="filtroEstado() === 'Completada'"
+        (click)="filtroEstado.set('Completada')"
+      >
+        Completadas
+      </button>
+      <button
+        class="btn-filtro"
+        [class.active]="filtroEstado() === 'Cancelada'"
+        (click)="filtroEstado.set('Cancelada')"
+      >
+        Canceladas
+      </button>
+    </div>
+
+    <!-- LISTA DE CITAS -->
+    @if (isLoadingData()) {
+      <div class="loading">Cargando citas...</div>
+    } @else {
+      <div class="citas-grid">
+        @for (cita of citasFiltradas; track cita.idCita) {
+          <div class="cita-card">
+            <div class="card-header">
+              <div>
+                <h3>{{ cita.pacienteNombre }} {{ cita.pacienteApellido }}</h3>
+                <p class="email">{{ cita.pacienteEmail }}</p>
+                <p class="especialidad">{{ cita.especialidadNombre }}</p>
+              </div>
+              <span class="badge" [ngClass]="getEstadoClass(cita.estado)">
+                {{ cita.estado }}
+              </span>
+            </div>
+
+            <div class="card-body">
+              <div class="info-row">
+                <span class="icon">📅</span>
+                <span>{{ formatearFecha(cita.fecha) }}</span>
+              </div>
+              <div class="info-row">
+                <span class="icon">🕐</span>
+                <span>{{ formatearHora(cita.hora) }}</span>
+              </div>
+              <div class="info-row">
+                <span class="icon">💻</span>
+                <span>Modalidad Virtual</span>
+              </div>
+            </div>
+
+            <div class="card-actions">
+              <button class="btn-ver" (click)="verDetalle(cita)">
+                Ver Detalles
+              </button>
+              @if (cita.estado === 'Pendiente') {
+                <button class="btn-confirmar" (click)="confirmarCita(cita.idCita)">
+                  Confirmar
+                </button>
+              }
+              @if (cita.estado === 'Confirmada') {
+                <button class="btn-completar" (click)="completarCita(cita.idCita)">
+                  Completar
+                </button>
+              }
+            </div>
+          </div>
+        } @empty {
+          <div class="empty-state">
+            <p>No tienes citas {{ filtroEstado() === 'todas' ? '' : filtroEstado().toLowerCase() }}</p>
+          </div>
+        }
+      </div>
+    }
+  </main>
+
+  <!-- MODAL DETALLE DE CITA -->
+  @if (showDetailModal()) {
+    <div class="modal-overlay" (click)="cerrarModal()">
+      <div class="modal-content modal-large" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h3>Detalles de la Cita</h3>
+          <button class="btn-close" (click)="cerrarModal()">✕</button>
+        </div>
+
+        @if (citaSeleccionada(); as cita) {
+          <div class="detalle-content">
+            <div class="detalle-section">
+              <h4>Información del Paciente</h4>
+              <div class="detalle-grid">
+                <div class="detalle-item">
+                  <span class="label">Nombre:</span>
+                  <span class="value">{{ cita.pacienteNombre }} {{ cita.pacienteApellido }}</span>
+                </div>
+                <div class="detalle-item">
+                  <span class="label">Email:</span>
+                  <span class="value">{{ cita.pacienteEmail }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detalle-section">
+              <h4>Información de la Cita</h4>
+              <div class="detalle-grid">
+                <div class="detalle-item">
+                  <span class="label">Fecha:</span>
+                  <span class="value">{{ formatearFecha(cita.fecha) }}</span>
+                </div>
+                <div class="detalle-item">
+                  <span class="label">Hora:</span>
+                  <span class="value">{{ formatearHora(cita.hora) }}</span>
+                </div>
+                <div class="detalle-item">
+                  <span class="label">Modalidad:</span>
+                  <span class="value">{{ cita.modalidad }}</span>
+                </div>
+                <div class="detalle-item">
+                  <span class="label">Especialidad:</span>
+                  <span class="value">{{ cita.especialidadNombre }}</span>
+                </div>
+                <div class="detalle-item">
+                  <span class="label">Estado:</span>
+                  <span class="value">
+                    <span class="badge" [ngClass]="getEstadoClass(cita.estado)">
+                      {{ cita.estado }}
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            @if (cita.motivoConsulta) {
+              <div class="detalle-section">
+                <h4>Motivo de la Consulta</h4>
+                <p class="motivo-text">{{ cita.motivoConsulta }}</p>
+              </div>
+            }
+
+            @if (cita.motivoCancelacion) {
+              <div class="detalle-section cancelacion">
+                <h4>Motivo de Cancelación</h4>
+                <p class="motivo-text">{{ cita.motivoCancelacion }}</p>
+              </div>
+            }
+
+            @if (cita.enlaceVirtual && cita.modalidad === 'Virtual') {
+              <div class="detalle-section">
+                <h4>Enlace de la Sesión</h4>
+                <a [href]="cita.enlaceVirtual" target="_blank" class="btn-enlace">
+                  🔗 Iniciar Sesión Virtual
+                </a>
+              </div>
+            }
+          </div>
+
+          <div class="modal-actions">
+            <button class="btn btn-secondary" (click)="cerrarModal()">
+              Cerrar
+            </button>
+            @if (cita.estado === 'Pendiente') {
+              <button class="btn btn-primary" (click)="confirmarCita(cita.idCita)">
+                Confirmar Cita
+              </button>
+            }
+            @if (cita.estado === 'Confirmada') {
+              <button class="btn btn-success" (click)="completarCita(cita.idCita)">
+                Marcar como Completada
+              </button>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

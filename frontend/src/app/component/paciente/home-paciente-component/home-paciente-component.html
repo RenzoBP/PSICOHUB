@@ -8,6 +8,7 @@
       <nav class="nav-links">
         <a (click)="goHome()">Home</a>
         <a (click)="goPerfil()">Perfil</a>
+        <a [routerLink]="['/citas-paciente']" routerLinkActive="active">Mis Citas</a>
         <a [routerLink]="['/contact']" routerLinkActive="active">Contacto</a>
         <a [routerLink]="['/about']" routerLinkActive="active">Sobre Nosotros</a>
       </nav>
@@ -29,14 +30,14 @@
         <div class="card">
           <h3>Mis Citas</h3>
           <p>Revisa tus próximas sesiones y tu historial de atención.</p>
-          <button class="btn-primary" [routerLink]="['/agendar-citas']">Ver citas</button>
+          <button class="btn-primary" [routerLink]="['/citas-paciente']">Ver citas</button>
         </div>
 
         <!-- Agendar Cita -->
         <div class="card">
           <h3>Agendar Cita</h3>
           <p>Reserva una nueva sesión con el psicólogo y la especialidad que prefieras.</p>
-          <button class="btn-outline" [routerLink]="['/agendar-citas']">Agendar</button>
+          <button class="btn-outline" [routerLink]="['/citas-paciente']">Agendar</button>
         </div>
 
         <!-- Soporte -->
@@ -44,6 +45,13 @@
           <h3>Soporte</h3>
           <p>¿Tienes dudas o necesitas ayuda? Contáctanos en cualquier momento.</p>
           <button class="btn-primary" [routerLink]="['/soporte']">Contactar</button>
+        </div>
+
+        <!-- FAQ -->
+        <div class="card">
+          <h3>Preguntas Frecuentes</h3>
+          <p>Encuentra respuestas rápidas a las dudas más comunes.</p>
+          <button class="btn-outline" [routerLink]="['/faq']">Ver FAQ</button>
         </div>
       </section>
     </div>
